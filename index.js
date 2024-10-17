@@ -9,14 +9,31 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 const comments = [
-    { username: 'james', comment: 'hi, im james' },
-    { username: 'brownn', comment: 'hi, im james brown' },
-    { username: 'bond', comment: 'hi, im james bond' },
-    { username: 'lebron', comment: 'hi, im lebron james' }
+    {
+        id: '1',
+        username: 'james',
+        comment: 'hi, im james' },
+    { 
+        id: '2',   
+        username: 'brownn',
+        comment: 'hi, im james brown' },
+    { 
+        id: '3',
+        username: 'bond',
+        comment: 'hi, im james bond' },
+    { 
+        id: '4',
+        username: 'lebron',
+        comment: 'hi, im lebron james' }
 ];
 
 app.get('/comments', (req, res) => {
     res.render('comments/index', { comments });
+});
+
+app.get('/comments/:id', (req, res) => {
+    const { id } = req.params;
+    res.render('comments/show', { id });
 });
 
 app.get('/comments/new', (req, res) => {
