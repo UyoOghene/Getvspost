@@ -9,8 +9,9 @@
     <h1>Comments</h1>
     <ul>
         <% comments.forEach(comment => { %>
-            <li><strong><%= comment.username %>:</strong> <%= comment.comment %></li>
-        <% }); %>
+            <li><strong><%= comment.username %>:</strong><%= comment.comment %>  <a href="/comments/<%= comment.id %>">details</a></li>
+        <% }); %> 
+      
     </ul>
     <a href="/comments/new">Add a new comment</a>
 </body>

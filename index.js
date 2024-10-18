@@ -1,6 +1,8 @@
 const express = require('express'); 
 const app = express();
 const path = require('path');
+const { v4: uuidv4 } = require('uuid');
+uuidv4(); 
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -10,19 +12,19 @@ app.set('view engine', 'ejs');
 
 const comments = [
     {
-        id: '1',
+        id: uuidv4(),
         username: 'james',
         comment: 'hi, im james' },
     { 
-        id: '2',   
+        id: uuidv4(),
         username: 'brownn',
         comment: 'hi, im james brown' },
     { 
-        id: '3',
+        id: uuidv4(),
         username: 'bond',
         comment: 'hi, im james bond' },
     { 
-        id: '4',
+        id: uuidv4(),
         username: 'lebron',
         comment: 'hi, im lebron james' }
 ];
@@ -30,19 +32,21 @@ const comments = [
 app.get('/comments', (req, res) => {
     res.render('comments/index', { comments });
 });
-
-app.get('/comments/:id', (req, res) => {
-    const { id } = req.params;
-    res.render('comments/show', { id });
-});
-
 app.get('/comments/new', (req, res) => {
     res.render('comments/new');
 });
 
+
+app.get('/comments/:id', (req, res) => {
+    const { id } = req.params;
+  const comment =  comments.find(c => c.id === id);
+    res.render('comments/show', {comment});
+});
+
+
 app.post('/comments', (req, res) => {
     const { username, comment } = req.body;
-    comments.push({ username, comment });
+    comments.push({ username, comment,id: uuidv4() });
     console.log(req.body); 
     res.redirect('/comments'); 
     // res.send('worked')
